@@ -10,7 +10,7 @@ type Server struct {
 	Conn *net.UDPConn
 }
 
-func NewServer(lport int) (*Server, error) {
+func New(lport int) (*Server, error) {
 	addr, err := net.ResolveUDPAddr("udp", fmt.Sprintf(":%d", lport))
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func (s *Server) Start() {
 	for {
 		n, _, err := s.Conn.ReadFromUDP(buf)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "SERVER: error reading: %v\n", err)
+			fmt.Fprintf(os.Stderr, "error reading: %v\n", err)
 			continue 
 		}
 
