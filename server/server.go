@@ -29,15 +29,16 @@ func (s *Server) Kill() error {
 func (s *Server) Start() {
 	buf := make([]byte, 1024)
 	for {
-		n, retAddr, err := s.Conn.ReadFromUDP(buf)
+		n, _, err := s.Conn.ReadFromUDP(buf)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "SERVER: error reading: %v\n", err)
 			continue 
 		}
 
+		// fmt.Printf("payload: %v, len: %d\n", buf, n)
 		// TODO: print payload
-		fmt.Printf("received: %s\n", buf)
-		s.Conn.WriteToUDP([]byte(fmt.Sprintf("ACK: %d", n)), retAddr)
+		fmt.Printf("received: %s\n", buf[:n])
+		// s.Conn.WriteToUDP([]byte(fmt.Sprintf("ACK: %d", n)), retAddr)
 	}
 }
 

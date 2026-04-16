@@ -31,7 +31,14 @@ func (c *Client) Kill() error {
 }
 
 func (c *Client) Send(msg string) {
+	// packet := packet.Packet{
+	// 	src: c.Laddr.AddrPort().Port(),
+	// 	dest: c.Laddr.AddrPort().Port(),
+	// 	len: len(msg),
+		
+	// }
 	buf := new(bytes.Buffer)
+
 	buf.Write([]byte(msg))
 	c.Conn.Write(buf.Bytes())
 }
